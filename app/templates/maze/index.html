@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Token Collector{% endblock %}
+
+{% block content %}
+<ul class="side-list horizontal">
+    <li>Total points: 10</li>
+    <li>Selected: <span class="color-rectangle token-legendary"></span></li>
+</ul>
+<div class="maze-container">
+    <div class="grid-container">
+        {% for i in range(10*10) %}
+        {% if i % 10 == 0 or i % 10 == 9 %}
+        <div class="grid-item wall"></div>
+        {% else %}
+        <div class="grid-item path"></div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <ul class="side-list">
+        <li>Environment:
+            <ul class="sublist">
+                <li>
+                    <span class="color-rectangle wall"></span> - Wall
+                </li>
+            </ul>
+        </li>
+        <li>Tokens:
+            <ul class="sublist">
+                <li>
+                    <span class="color-rectangle token-common">1</span> - Common
+                </li>
+                <li>
+                    <span class="color-rectangle token-rare">2</span> - Rare
+                </li>
+                <li>
+                    <span class="color-rectangle token-unique">5</span> - Unique
+                </li>
+                <li>
+                    <span class="color-rectangle token-legendary">10</span> - Legendary
+                </li>
+            </ul>
+        </li>
+        <li>Settings:
+            <ul class="sublist">
+                <li class="setting-row">
+                    <label for="grid-size">Grid size:</label>
+                    <input type="range" min="4" max="20" value="10" class="slider"
+                           id="grid-size">
+                </li>
+                <li class="setting-row">
+                    <label for="population-size">Population size:</label>
+                    <input type="number" min="1" max="1000000" value="1000"
+                           id="population-size">
+                </li>
+                <li class="setting-row">
+                    <label for="generation-size">Generations:</label>
+                    <input type="number" min="1" max="5000" value="50"
+                           id="generation-size">
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<button class="solve-button">Solve</button>
+{% endblock %}

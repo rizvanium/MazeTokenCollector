@@ -61,7 +61,7 @@ def solve_for_max_profit(graph, starting_node_id, distance_limit):
     stats.register('min', numpy.min)
     stats.register('max', numpy.max)
 
-    algorithms.eaSimple(population, toolbox, cxpb=0.5, mutpb=0.2, ngen=50, halloffame=hof, verbose=True, stats=stats)
+    algorithms.eaSimple(population, toolbox, cxpb=0.5, mutpb=0.2, ngen=30, halloffame=hof, verbose=True, stats=stats)
 
     print('\nHALL OF FAME:')
     print(f'with a distance limit of: {distance_limit}')

@@ -1,0 +1,293 @@
+/*
+  1. Use a more-intuitive box-sizing model.
+*/
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/*
+  2. Remove default margin
+*/
+* {
+    margin: 0;
+}
+
+/*
+  Typographic tweaks!
+  3. Add accessible line-height
+  4. Improve text rendering
+*/
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+/*
+  5. Improve media defaults
+*/
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+}
+
+/*
+  6. Remove built-in form typography styles
+*/
+input, button, textarea, select {
+    font: inherit;
+}
+
+/*
+  7. Avoid text overflows
+*/
+p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+}
+
+/*
+  8. Create a root stacking context
+*/
+#root, #__next {
+    isolation: isolate;
+}
+
+:root {
+    --color-button-primary: #66BB6A;
+    --color-button-primary-light: #84D988;
+    --color-button-primary-dark: #47A04B;
+    --color-background: #334955;
+    --color-path: #232f34;
+    --color-path-light: #4b575c;
+    --color-wall: #202325;
+    --color-wall-light: #282828;
+    --color-common: #66BB6A;
+    --color-common-light: #84D988;
+    --color-rare: #29B6F6;
+    --color-rare-light: #47d4ff;
+    --color-unique: #CE93D8;
+    --color-unique-light: #ECB1F6;
+    --color-legendary: #ffa726;
+    --color-legendary-light: #ffc544;
+    --color-font-primary: #F3F6F9;
+}
+
+body, html {
+    font-family: "General Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-background);
+    box-sizing: border-box;
+}
+
+.app-title {
+    color: var(--color-font-primary);
+    margin: 1em 0;
+    font-weight: 700;
+}
+
+.flex-container {
+    width: 70%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.maze-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 1em;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    gap: 0.5rem;
+    flex-grow: 3;
+    height: 100%;
+}
+
+.grid-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: antiquewhite;
+    border: rgba(0, 0, 0, 0.87) solid 2px;
+    border-radius: 2px;
+    color: whitesmoke;
+    min-height: 1.5rem;
+}
+
+.path {
+    background-color: var(--color-path);
+}
+
+.path:hover {
+    background-color: var(--color-path-light);
+}
+
+.wall {
+    background-color: var(--color-wall);
+}
+
+.wall:hover {
+    background-color: var(--color-wall-light);
+}
+
+.token-common {
+    background-color: var(--color-common);
+}
+
+.token-common:hover {
+    background-color: var(--color-common-light);
+}
+
+.token-rare {
+    background-color: var(--color-rare);
+}
+
+.token-rare:hover {
+    background-color: var(--color-rare-light);
+}
+
+.token-unique {
+    background-color: var(--color-unique);
+}
+
+.token-unique:hover {
+    background-color: var(--color-unique-light);
+}
+
+.token-legendary {
+    background-color: var(--color-legendary);
+}
+
+.token-legendary:hover {
+    background-color: var(--color-legendary-light);
+}
+
+.side-list {
+    border: rgba(0, 0, 0, 0.87) solid 2px;
+    border-radius: 2px;
+    display: flex;
+    width: 25%;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    list-style-type: none;
+    margin: 0;
+    background-color: var(--color-path);
+    color: var(--color-font-primary);
+    padding: 20px 22px 20px 20px;
+    box-sizing: border-box;
+    font-weight: 700;
+}
+
+.side-list li {
+    background-color: var(--color-path);
+    border-radius: 2px;
+    width: 100%;
+    margin: 0;
+}
+
+.side-list.horizontal {
+    width: 100%;
+    flex-direction: row;
+    margin: 1em 0;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+.side-list.horizontal li {
+    text-align: center;
+    width: fit-content;
+    margin-bottom: -2px;
+}
+
+.color-rectangle {
+    display: inline-block;
+    width: 3em;
+    height: 2em;
+    margin: 5px 1px 5px 0;
+    padding-top: 0.1em;
+    vertical-align: middle;
+    text-align: center;
+    border-radius: 2px;
+    border: rgba(255, 255, 255, 0.87) solid 2px;
+}
+
+.text-rectangle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sublist {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0 1.5em 20px;
+}
+
+.sublist li {
+    padding: 5px 0;
+    font-weight: bold;
+}
+
+.solve-button {
+    width: 100%;
+    font-size: 1.25rem;
+    text-transform: capitalize;
+    margin: 1em;
+    border: rgba(0, 0, 0, 0.87) solid 2px;
+    padding: 1em 0;
+    font-weight: bold;
+    background-color: var(--color-button-primary-dark);
+    color: var(--color-font-primary);
+}
+
+.solve-button:hover {
+    animation: seizure 5s infinite;
+}
+
+.solve-button:active {
+    animation: none;
+    background-color: var(--color-button-primary-light);
+    color: black;
+}
+
+.setting-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+@keyframes seizure {
+    0% { background-color: red; color: red }
+  5% { background-color: #FF4500; color: #FF6347; }
+  10% { background-color: orange; color: #FF1493; }
+  15% { background-color: #FFD700; color: #FF69B4; }
+  20% { background-color: yellow; color: #EE82EE; }
+  25% { background-color: #ADFF2F; color: violet; }
+  30% { background-color: #00FF00; color: indigo; }
+  35% { background-color: #00FA9A; color: #8A2BE2; }
+  40% { background-color: green; color: blue; }
+  45% { background-color: #40E0D0; color: #1E90FF; }
+  50% { background-color: cyan; color: cyan; }
+  55% { background-color: #1E90FF; color: #40E0D0; }
+  60% { background-color: blue; color: green; }
+  65% { background-color: #8A2BE2; color: #00FA9A; }
+  70% { background-color: indigo; color: #00FF00; }
+  75% { background-color: violet; color: #ADFF2F; }
+  80% { background-color: #EE82EE; color: yellow; }
+  85% { background-color: #FF69B4; color: #FFD700; }
+  90% { background-color: #FF1493; color: orange; }
+  95% { background-color: #FF6347; color: #FF4500; }
+  100% { background-color: red; color: red; }
+}

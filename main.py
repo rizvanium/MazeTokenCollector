@@ -1,6 +1,7 @@
 import networkx as nx
 from solver_ga_v2 import solve_for_max_profit
 
+
 def maze_to_graph(maze):
     graph = nx.Graph()
 
@@ -37,12 +38,12 @@ if __name__ == '__main__':
         [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
         [-1, 0, -1, 0, 0, 0, 0, 0, 10, -1],
         [-1, 1, -1, 0, -1, -1, -1, -1, -1, -1],
-        [-1, 0, -1, 0, 0, 0, 2, 0, 0, -1],
+        [-1, 0, 0, 0, 0, 0, 2, 0, 0, -1],
         [-1, 1, -1, 0, -1, -1, -1, -1, 0, -1],
-        [-1, 0, -1, 0, 0, -1, 1, -1, 0, -1],
-        [-1, 2, -1, -1, -1, -1, 0, 0, 0, -1],
+        [-1, 0, -1, 0, -2, -1, 1, -1, 0, -1],
+        [-1, 2, -1, -1, 0, -1, 0, 0, 0, -1],
         [-1, 0, -1, 5, 0, -1, -1, -1, 0, -1],
-        [-1, 0, 0, 0, 0, 0, 0, 0, -2, -1],
+        [-1, 0, 0, 0, 0, 0, 0, 0, 0, -1],
     ]
 
     maze_graph = maze_to_graph(maze)
@@ -82,4 +83,6 @@ if __name__ == '__main__':
 
     print(weighted_graph)
 
-    solve_for_max_profit(weighted_graph, 39, 12)
+    starting_node_id = 22
+    distance_limit = 45
+    solve_for_max_profit(weighted_graph, starting_node_id, distance_limit)

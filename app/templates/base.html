@@ -1,0 +1,9 @@
+<!doctype html>
+<title>{%block title %} {% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+
+<main class="flex-container">
+    <h1 class="app-title">Token Collector</h1>
+    {% block content %}{% endblock %}
+</main>
+
