@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, url_for
 from .models import Token
+from .mappers import maze_mapper
 
 bp = Blueprint('maze', __name__)
 
@@ -30,7 +31,7 @@ def update_maze_cell():
 
 @bp.route('/maze', methods=['PUT'])
 def update_maze():
-    maze_size = request.form.get('size')
+    maze_size = request.form.get('grid_size')
     return render_template('maze/partials/maze.html', size=int(maze_size))
 
 
@@ -39,4 +40,6 @@ def get_solution():
     grid_size = request.form.get('grid_size')
     population_size = request.form.get('population_size')
     generation_size = request.form.get('generation_size')
+    maze = maze_mapper.to_maze(values=[v for k, v in request.form.items() if k.isnumeric()], size=int(grid_size))
+
     return '<button class="solve-button">TEST</button>'

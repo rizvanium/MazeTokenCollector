@@ -5,6 +5,9 @@
          hx-trigger="click"
          hx-swap="outerHTML"
          hx-include="#hidden-brush-select"
-    ></div>
+         hx-vals='{"index": "{{i}}"}'
+    >
+        <input class="hidden-grid-item" name="{{i}}" value="path" style="display: none;">
+    </div>
     {% endfor %}
 </div>
