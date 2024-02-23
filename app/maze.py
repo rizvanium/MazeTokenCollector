@@ -13,7 +13,6 @@ def index():
 @bp.route('/select-brush', methods=['POST'])
 def select_item():
     brush = request.form.get('brush')
-
     return render_template(
         'maze/partials/selected_brush.html',
         selected_brush=brush

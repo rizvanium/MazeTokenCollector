@@ -294,6 +294,16 @@ body, html {
     border: rgba(255, 255, 255, 0.87) solid 2px;
 }
 
+.agent {
+    background: repeating-radial-gradient(
+            circle at 50% 50%,
+            #F56E9D 0,
+            #F56E9D 5px,
+            #663039 5px,
+            #663039 10px
+    );
+}
+
 .text-rectangle {
     display: flex;
     align-items: center;
@@ -354,25 +364,88 @@ body, html {
 }
 
 @keyframes seizure {
-    0% { background-color: red; color: red }
-  5% { background-color: #FF4500; color: #FF6347; }
-  10% { background-color: orange; color: #FF1493; }
-  15% { background-color: #FFD700; color: #FF69B4; }
-  20% { background-color: yellow; color: #EE82EE; }
-  25% { background-color: #ADFF2F; color: violet; }
-  30% { background-color: #00FF00; color: indigo; }
-  35% { background-color: #00FA9A; color: #8A2BE2; }
-  40% { background-color: green; color: blue; }
-  45% { background-color: #40E0D0; color: #1E90FF; }
-  50% { background-color: cyan; color: cyan; }
-  55% { background-color: #1E90FF; color: #40E0D0; }
-  60% { background-color: blue; color: green; }
-  65% { background-color: #8A2BE2; color: #00FA9A; }
-  70% { background-color: indigo; color: #00FF00; }
-  75% { background-color: violet; color: #ADFF2F; }
-  80% { background-color: #EE82EE; color: yellow; }
-  85% { background-color: #FF69B4; color: #FFD700; }
-  90% { background-color: #FF1493; color: orange; }
-  95% { background-color: #FF6347; color: #FF4500; }
-  100% { background-color: red; color: red; }
+    0% {
+        background-color: red;
+        color: red
+    }
+    5% {
+        background-color: #FF4500;
+        color: #FF6347;
+    }
+    10% {
+        background-color: orange;
+        color: #FF1493;
+    }
+    15% {
+        background-color: #FFD700;
+        color: #FF69B4;
+    }
+    20% {
+        background-color: yellow;
+        color: #EE82EE;
+    }
+    25% {
+        background-color: #ADFF2F;
+        color: violet;
+    }
+    30% {
+        background-color: #00FF00;
+        color: indigo;
+    }
+    35% {
+        background-color: #00FA9A;
+        color: #8A2BE2;
+    }
+    40% {
+        background-color: green;
+        color: blue;
+    }
+    45% {
+        background-color: #40E0D0;
+        color: #1E90FF;
+    }
+    50% {
+        background-color: cyan;
+        color: cyan;
+    }
+    55% {
+        background-color: #1E90FF;
+        color: #40E0D0;
+    }
+    60% {
+        background-color: blue;
+        color: green;
+    }
+    65% {
+        background-color: #8A2BE2;
+        color: #00FA9A;
+    }
+    70% {
+        background-color: indigo;
+        color: #00FF00;
+    }
+    75% {
+        background-color: violet;
+        color: #ADFF2F;
+    }
+    80% {
+        background-color: #EE82EE;
+        color: yellow;
+    }
+    85% {
+        background-color: #FF69B4;
+        color: #FFD700;
+    }
+    90% {
+        background-color: #FF1493;
+        color: orange;
+    }
+    95% {
+        background-color: #FF6347;
+        color: #FF4500;
+    }
+    100% {
+        background-color: red;
+        color: red;
+    }
 }

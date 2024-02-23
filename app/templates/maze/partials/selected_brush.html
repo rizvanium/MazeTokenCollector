@@ -48,6 +48,14 @@
         hx-vals='{"brush": "token-legendary"}'>
         <span class="color-rectangle token-legendary">10</span> - Legendary
     </li>
+    <li class="{{'selected' if selected_brush == 'agent' else ''}}"
+            hx-post="/select-brush"
+        hx-trigger="click"
+        hx-target="#brush-sublist"
+        hx-swap="outerHTML"
+        hx-vals='{"brush": "agent"}'>
+        <span class="color-rectangle agent"></span> - Agent
+    </li>
     <select id="hidden-brush-select" name="brush" style="display: none;">
         <option value="path" {% if selected_brush=="path" %}selected{% endif %}></option>
         <option value="wall" {% if selected_brush=="wall" %}selected{% endif %}></option>
@@ -55,5 +63,6 @@
         <option value="token-rare" {% if selected_brush=="token-rare" %}selected{% endif %}></option>
         <option value="token-unique" {% if selected_brush=="token-unique" %}selected{% endif %}></option>
         <option value="token-legendary" {% if selected_brush=="token-legendary" %}selected{% endif %}></option>
+        <option value="agent" {% if selected_brush=="agent" %}selected{% endif %}></option>
     </select>
 </ul>
