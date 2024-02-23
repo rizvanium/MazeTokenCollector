@@ -5,7 +5,6 @@
 {% block content %}
 <ul class="side-list horizontal">
     <li>Total points: 10</li>
-    <li>Selected: <span class="color-rectangle token-legendary"></span></li>
 </ul>
 <div class="maze-container">
     <div class="grid-container">
@@ -18,27 +17,59 @@
         {% endfor %}
     </div>
     <ul class="side-list">
-        <li>Environment:
-            <ul class="sublist">
-                <li>
+        <li>Brushes:
+            <ul id="brush-sublist" class="sublist">
+                <li class="selected"
+                    hx-post="/select-brush"
+                    hx-trigger="click"
+                    hx-target="#brush-sublist"
+                    hx-swap="outerHTML"
+                    hx-vals='{"brush": "path"}'>
+                    <span class="color-rectangle path"></span> - Path
+                </li>
+                <li hx-post="/select-brush"
+                    hx-trigger="click"
+                    hx-target="#brush-sublist"
+                    hx-swap="outerHTML"
+                    hx-vals='{"brush": "wall"}'>
                     <span class="color-rectangle wall"></span> - Wall
                 </li>
-            </ul>
-        </li>
-        <li>Tokens:
-            <ul class="sublist">
-                <li>
+                <li hx-post="/select-brush"
+                    hx-trigger="click"
+                    hx-target="#brush-sublist"
+                    hx-swap="outerHTML"
+                    hx-vals='{"brush": "token-common"}'>
                     <span class="color-rectangle token-common">1</span> - Common
                 </li>
-                <li>
+                <li hx-post="/select-brush"
+                    hx-trigger="click"
+                    hx-target="#brush-sublist"
+                    hx-swap="outerHTML"
+                    hx-vals='{"brush": "token-rare"}'>
                     <span class="color-rectangle token-rare">2</span> - Rare
                 </li>
-                <li>
+                <li hx-post="/select-brush"
+                    hx-trigger="click"
+                    hx-target="#brush-sublist"
+                    hx-swap="outerHTML"
+                    hx-vals='{"brush": "token-unique"}'>
                     <span class="color-rectangle token-unique">5</span> - Unique
                 </li>
-                <li>
+                <li hx-post="/select-brush"
+                    hx-trigger="click"
+                    hx-target="#brush-sublist"
+                    hx-swap="outerHTML"
+                    hx-vals='{"brush": "token-legendary"}'>
                     <span class="color-rectangle token-legendary">10</span> - Legendary
                 </li>
+                <select id="hidden-brush-select" name="brush" style="display: none;">
+                    <option value="path"></option>
+                    <option value="wall"></option>
+                    <option value="token-common"></option>
+                    <option value="token-rare"></option>
+                    <option value="token-unique"></option>
+                    <option value="token-legendary"></option>
+                </select>
             </ul>
         </li>
         <li>Settings:

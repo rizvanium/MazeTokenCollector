@@ -7,3 +7,18 @@
     {% block content %}{% endblock %}
 </main>
 
+<script src="{{ url_for('static', filename='htmx.min.js') }}"></script>
+<script>
+    document.body.addEventListener('htmx:afterSwap', function (event) {
+        const items = ['path', 'wall', 'token-common', 'token-rare', 'token-unique', 'token-legendary']
+
+        if (event.target.id === 'selected-brush') {
+            items.forEach(item => {
+                const isFound = event.target.classList.contains(item)
+                if (isFound) {
+                    localStorage.setItem('selected-brush', item)
+                }
+            })
+        }
+    });
+</script>

@@ -177,7 +177,7 @@ body, html {
     border: rgba(0, 0, 0, 0.87) solid 2px;
     border-radius: 2px;
     display: flex;
-    width: 25%;
+    width: 30%;
     flex-direction: column;
     justify-content: start;
     align-items: start;
@@ -200,8 +200,8 @@ body, html {
 .side-list.horizontal {
     width: 100%;
     flex-direction: row;
-    margin: 1em 0;
-    justify-content: space-between;
+    margin-bottom: 1em;
+    justify-content: center;
     align-items: center;
     font-size: 1.1rem;
 }
@@ -233,12 +233,27 @@ body, html {
 .sublist {
     list-style-type: none;
     padding: 0;
-    margin: 0 0 1.5em 20px;
+    margin: 1em 0;
 }
 
 .sublist li {
-    padding: 5px 0;
+    padding: 5px 10px;
     font-weight: bold;
+    border: rgba(255, 255, 255, 0.87) solid 2px;
+    border-radius: 2px;
+    margin-bottom: 0.5em;
+}
+
+.sublist li:last-of-type {
+    margin-bottom: 0;
+}
+
+.sublist li.selected {
+    background-color: #00695c;
+}
+
+.sublist li:hover {
+    background-color: #8b0000;
 }
 
 .solve-button {

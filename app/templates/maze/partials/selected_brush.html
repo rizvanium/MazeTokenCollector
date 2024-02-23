@@ -1,0 +1,59 @@
+<ul id="brush-sublist" class="sublist">
+    <li class="{{'selected' if selected_brush == 'path' else '' }}"
+        hx-post="/select-brush"
+        hx-trigger="click"
+        hx-target="#brush-sublist"
+        hx-swap="outerHTML"
+        hx-vals='{"brush": "path"}'>
+
+        <span class="color-rectangle path"></span> - Path
+    </li>
+    <li class="{{'selected' if selected_brush == 'wall' else '' }}"
+        hx-post="/select-brush"
+        hx-trigger="click"
+        hx-target="#brush-sublist"
+        hx-swap="outerHTML"
+        hx-vals='{"brush": "wall"}'>
+        <span class="color-rectangle wall"></span> - Wall
+    </li>
+    <li class="{{'selected' if selected_brush == 'token-common' else '' }}"
+        hx-post="/select-brush"
+        hx-trigger="click"
+        hx-target="#brush-sublist"
+        hx-swap="outerHTML"
+        hx-vals='{"brush": "token-common"}'>
+        <span class="color-rectangle token-common">1</span> - Common
+    </li>
+    <li class="{{'selected' if selected_brush == 'token-rare' else '' }}"
+        hx-post="/select-brush"
+        hx-trigger="click"
+        hx-target="#brush-sublist"
+        hx-swap="outerHTML"
+        hx-vals='{"brush": "token-rare"}'>
+        <span class="color-rectangle token-rare">2</span> - Rare
+    </li>
+    <li class="{{'selected' if selected_brush == 'token-unique' else '' }}"
+        hx-post="/select-brush"
+        hx-trigger="click"
+        hx-target="#brush-sublist"
+        hx-swap="outerHTML"
+        hx-vals='{"brush": "token-unique"}'>
+        <span class="color-rectangle token-unique">5</span> - Unique
+    </li>
+    <li class="{{'selected' if selected_brush == 'token-legendary' else '' }}"
+        hx-post="/select-brush"
+        hx-trigger="click"
+        hx-target="#brush-sublist"
+        hx-swap="outerHTML"
+        hx-vals='{"brush": "token-legendary"}'>
+        <span class="color-rectangle token-legendary">10</span> - Legendary
+    </li>
+    <select id="hidden-brush-select" name="brush" style="display: none;">
+        <option value="path" {% if selected_brush=="path" %}selected{% endif %}></option>
+        <option value="wall" {% if selected_brush=="wall" %}selected{% endif %}></option>
+        <option value="token-common" {% if selected_brush=="token-common" %}selected{% endif %}></option>
+        <option value="token-rare" {% if selected_brush=="token-rare" %}selected{% endif %}></option>
+        <option value="token-unique" {% if selected_brush=="token-unique" %}selected{% endif %}></option>
+        <option value="token-legendary" {% if selected_brush=="token-legendary" %}selected{% endif %}></option>
+    </select>
+</ul>
