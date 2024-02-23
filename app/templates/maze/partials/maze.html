@@ -1,0 +1,10 @@
+<div class="grid-container size-{{size}}-{{size}}">
+    {% for i in range(size*size) %}
+    <div class="grid-item path"
+         hx-put="/maze/cell"
+         hx-trigger="click"
+         hx-swap="outerHTML"
+         hx-include="#hidden-brush-select"
+    ></div>
+    {% endfor %}
+</div>

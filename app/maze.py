@@ -27,3 +27,9 @@ def update_maze_cell():
         'maze/partials/cell.html',
         brush=brush
     )
+
+
+@bp.route('/maze', methods=['PUT'])
+def update_maze():
+    maze_size = request.form.get('size')
+    return render_template('maze/partials/maze.html', size=int(maze_size))
