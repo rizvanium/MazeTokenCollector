@@ -17,3 +17,13 @@ def select_item():
         'maze/partials/selected_brush.html',
         selected_brush=brush
     )
+
+
+@bp.route('/maze/cell', methods=['PUT'])
+def update_maze_cell():
+    brush = request.form.get('brush')
+
+    return render_template(
+        'maze/partials/cell.html',
+        brush=brush
+    )

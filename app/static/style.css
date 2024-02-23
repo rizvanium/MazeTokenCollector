@@ -58,8 +58,8 @@ p, h1, h2, h3, h4, h5, h6 {
     --color-background: #334955;
     --color-path: #232f34;
     --color-path-light: #4b575c;
-    --color-wall: #202325;
-    --color-wall-light: #282828;
+    --color-wall: #8b0000;
+    --color-wall-light: #d35050;
     --color-common: #66BB6A;
     --color-common-light: #84D988;
     --color-rare: #29B6F6;
@@ -253,7 +253,7 @@ body, html {
 }
 
 .sublist li:hover {
-    background-color: #8b0000;
+    background-color: #35ccb9;
 }
 
 .solve-button {

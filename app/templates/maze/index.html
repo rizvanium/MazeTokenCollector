@@ -9,11 +9,12 @@
 <div class="maze-container">
     <div class="grid-container">
         {% for i in range(10*10) %}
-        {% if i % 10 == 0 or i % 10 == 9 %}
-        <div class="grid-item wall"></div>
-        {% else %}
-        <div class="grid-item path"></div>
-        {% endif %}
+        <div class="grid-item path"
+             hx-put="/maze/cell"
+             hx-trigger="click"
+             hx-swap="outerHTML"
+             hx-include="#hidden-brush-select"
+        ></div>
         {% endfor %}
     </div>
     <ul class="side-list">
