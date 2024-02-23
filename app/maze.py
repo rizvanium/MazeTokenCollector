@@ -21,11 +21,10 @@ def select_item():
 
 @bp.route('/maze/cell', methods=['PUT'])
 def update_maze_cell():
-    brush = request.form.get('brush')
-
     return render_template(
         'maze/partials/cell.html',
-        brush=brush
+        brush=request.form.get('brush'),
+        index=request.form.get('index'),
     )
 
 
@@ -33,3 +32,11 @@ def update_maze_cell():
 def update_maze():
     maze_size = request.form.get('size')
     return render_template('maze/partials/maze.html', size=int(maze_size))
+
+
+@bp.route('/solutions', methods=['POST'])
+def get_solution():
+    grid_size = request.form.get('grid_size')
+    population_size = request.form.get('population_size')
+    generation_size = request.form.get('generation_size')
+    return '<button class="solve-button">TEST</button>'

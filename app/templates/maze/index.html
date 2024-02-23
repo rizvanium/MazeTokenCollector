@@ -14,7 +14,11 @@
              hx-trigger="click"
              hx-swap="outerHTML"
              hx-include="#hidden-brush-select"
-        ></div>
+             hx-vals='{"index": "{{i}}"}'
+        >
+            <input class="hidden-grid-item" name="{{i}}" value="path"
+                   style="display: none;">
+        </div>
         {% endfor %}
     </div>
     <ul class="side-list">
@@ -81,22 +85,29 @@
                            hx-target=".grid-container"
                            hx-swap="outerHTML"
                            hx-trigger="change"
-                           name="size" type="range" min="2" max="15" step="1" value="10" class="slider"
+                           name="grid_size" type="range" min="2" max="15" step="1" value="10" class="slider"
                            id="grid-size">
                 </li>
                 <li class="setting-row">
                     <label for="population-size">Population size:</label>
-                    <input type="number" min="1" max="1000000" value="1000"
+                    <input name="population_size" type="number" min="1" max="1000000" value="1000"
                            id="population-size">
                 </li>
                 <li class="setting-row">
                     <label for="generation-size">Generations:</label>
-                    <input type="number" min="1" max="5000" value="50"
+                    <input name="generation_size" type="number" min="1" max="5000" value="50"
                            id="generation-size">
                 </li>
             </ul>
         </li>
     </ul>
 </div>
-<button class="solve-button">Solve</button>
+<button class="solve-button"
+        hx-post="/solutions"
+        hx-trigger="click"
+        hx-include=".hidden-grid-item, #grid-size, #population-size, #generation-size"
+        hx-swap="outerHTML"
+
+>Solve
+</button>
 {% endblock %}

@@ -1,5 +1,5 @@
 import networkx as nx
-from solver_ga_v2 import solve_for_max_profit
+from app.solvers.solver_ga_v2 import solve_for_max_profit
 
 
 def maze_to_graph(maze):
