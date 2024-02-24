@@ -1,4 +1,6 @@
 from flask import Blueprint, render_template, request, url_for
+
+from .solvers import solver_ga_v2
 from .models import Token
 from .mappers import maze_mapper
 
@@ -39,6 +41,15 @@ def get_solution():
     grid_size = request.form.get('grid_size')
     population_size = request.form.get('population_size')
     generation_size = request.form.get('generation_size')
-    maze = maze_mapper.to_maze(values=[v for k, v in request.form.items() if k.isnumeric()], size=int(grid_size))
 
-    return '<button class="solve-button">TEST</button>'
+    maze, paths = maze_mapper.to_maze(values=[v for k, v in request.form.items() if k.isnumeric()], size=int(grid_size))
+    graph, starting_node_id = maze_mapper.to_graph(maze=maze)
+    hof, success = solver_ga_v2.solve_for_max_profit(graph=graph, starting_node_id=starting_node_id, distance_limit=50)
+
+    if success:
+        for index, individual in enumerate(hof):
+            print(
+                f'{index + 1}.\t{individual} points: {individual.fitness.values[0]}, distance: {individual.fitness.values[1]}')
+        return '<button class="solve-button">SUCCESS</button>'
+
+    return '<button class="solve-button">FAILURE</button>'
