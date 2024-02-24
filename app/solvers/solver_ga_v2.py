@@ -1,6 +1,7 @@
 import random
 import numpy
 from deap import base, creator, tools, algorithms
+from deap.tools import HallOfFame
 
 toolbox = base.Toolbox()
 
@@ -8,12 +9,26 @@ creator.create("FitnessMax", base.Fitness, weights=(1.0, -1.0))
 creator.create('Individual', list, fitness=creator.FitnessMax)
 
 
-def solve_for_max_profit(graph, starting_node_id, distance_limit):
+def solve_for_max_profit(
+        graph,
+        starting_node_id,
+        distance_limit,
+        population_size=10_000,
+        generation_size=30
+) -> tuple[HallOfFame | None, bool]:
     toolbox.register(
         'attr_node_id',
         random.choice,
         list(graph.nodes())
     )
+
+    if graph is None:
+        return None, False
+
+    print('starting_node_id', starting_node_id)
+    print('distance_limit', distance_limit)
+    if not isinstance(starting_node_id, int) or not isinstance(distance_limit, int):
+        return None, False
 
     def create_individual():
         length = random.randint(1, len(graph.nodes()))
@@ -52,19 +67,24 @@ def solve_for_max_profit(graph, starting_node_id, distance_limit):
     toolbox.register("select", tools.selTournament, tournsize=3)
     toolbox.register("evaluate", evaluate)
 
-    population = toolbox.population(n=10_000)
-    hof = tools.HallOfFame(10)
-
     stats = tools.Statistics(key=lambda ind: ind.fitness.values[0])
     stats.register('avg', numpy.mean)
     stats.register('std', numpy.std)
     stats.register('min', numpy.min)
     stats.register('max', numpy.max)
 
-    algorithms.eaSimple(population, toolbox, cxpb=0.5, mutpb=0.2, ngen=30, halloffame=hof, verbose=True, stats=stats)
+    population = toolbox.population(n=population_size)
+    hof = tools.HallOfFame(10)
 
-    print('\nHALL OF FAME:')
-    print(f'with a distance limit of: {distance_limit}')
-    for index, individual in enumerate(hof):
-        print(
-            f'{index + 1}.\t{individual} points: {individual.fitness.values[0]}, distance: {individual.fitness.values[1]}')
+    algorithms.eaSimple(
+        population,
+        toolbox,
+        cxpb=0.5,
+        mutpb=0.2,
+        ngen=generation_size,
+        halloffame=hof,
+        verbose=True,
+        stats=stats
+    )
+
+    return hof, True
