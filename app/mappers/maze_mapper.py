@@ -26,7 +26,7 @@ def to_maze(values: list['str'], size: int) -> list[list[int]]:
     return maze
 
 
-def to_graph(maze: list[list[int]]) -> tuple[nx.Graph, int]:
+def to_graph(maze: list[list[int]]) -> tuple[nx.Graph, int | None, list | dict]:
     graph = nx.Graph()
 
     node_id = 0
@@ -52,7 +52,7 @@ def to_graph(maze: list[list[int]]) -> tuple[nx.Graph, int]:
                     graph.add_edge(current_node['id'], node_above[1]['id'])
 
                 prev_path_node = current_node
-                node_id += 1
+            node_id += 1
 
     interest_points = [node[1] for node in graph.nodes.data() if
                        node and (node[1]['value'] > 0 or node[1]['value'] == -2)]
@@ -63,11 +63,11 @@ def to_graph(maze: list[list[int]]) -> tuple[nx.Graph, int]:
             if point1 == point2:
                 continue
 
-            point_combo = sorted([point1['id'], point2['id']])
-            if paths.get((point_combo[0], point_combo[1])) is None:
+            if paths.get((point1['id'], point2['id'])) is None:
                 try:
                     path = nx.shortest_path(graph, source=point1['id'], target=point2['id'])
-                    paths[(point_combo[0], point_combo[1])] = path
+                    paths[(point1['id'], point2['id'])] = path
+                    paths[(point2['id'], point1['id'])] = path
                 except nx.NetworkXNoPath and nx.NodeNotFound:
                     continue
 
@@ -88,4 +88,4 @@ def to_graph(maze: list[list[int]]) -> tuple[nx.Graph, int]:
                 if set(path[1:-1]).isdisjoint(set([point['id'] for point in interest_points])):
                     weighted_graph.add_edge(node_combo[0], node_combo[1], cost=len(path) - 1)
 
-    return weighted_graph, starting_node_id
+    return weighted_graph, starting_node_id, paths

@@ -193,6 +193,7 @@ body, html {
     border-radius: 2px;
     color: whitesmoke;
     min-height: 1.5rem;
+    font-weight: bold;
 }
 
 .path {
@@ -302,6 +303,8 @@ body, html {
             #663039 5px,
             #663039 10px
     );
+    color: var(--color-font-primary);
+    font-weight: bold;
 }
 
 .text-rectangle {

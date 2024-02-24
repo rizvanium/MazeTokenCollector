@@ -1,4 +1,5 @@
 <div class="grid-container size-{{size}}-{{size}}">
+    {% if cells|length == 0 %}
     {% for i in range(size*size) %}
     <div class="grid-item path"
          hx-put="/maze/cell"
@@ -10,4 +11,19 @@
         <input class="hidden-grid-item" name="{{i}}" value="path" style="display: none;">
     </div>
     {% endfor %}
+    {% else %}
+    {% for cell in cells %}
+    <div class="grid-item {{cell}}"
+         hx-put="/maze/cell"
+         hx-trigger="click"
+         hx-swap="outerHTML"
+         hx-include="#hidden-brush-select"
+         hx-vals='{"index": "{{ loop.index0 }}"}'
+    >
+        {{loop.index0 if solution_path.get(loop.index0) else ''}}
+        <input class="hidden-grid-item" name="{{loop.index0 }}" value="{{cell}}" style="display: none;">
+    </div>
+    {% endfor %}
+    {% endif %}
+
 </div>

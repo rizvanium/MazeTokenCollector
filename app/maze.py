@@ -1,7 +1,6 @@
-from flask import Blueprint, render_template, request, url_for
+from flask import Blueprint, render_template, request
 
 from .solvers import solver_ga_v2
-from .models import Token
 from .mappers import maze_mapper
 
 bp = Blueprint('maze', __name__)
@@ -27,29 +26,56 @@ def update_maze_cell():
         'maze/partials/cell.html',
         brush=request.form.get('brush'),
         index=request.form.get('index'),
+        cells=[]
     )
 
 
 @bp.route('/maze', methods=['PUT'])
 def update_maze():
     maze_size = request.form.get('grid_size')
-    return render_template('maze/partials/maze.html', size=int(maze_size))
+    return render_template('maze/partials/maze.html', size=int(maze_size), solution_path={})
 
 
 @bp.route('/solutions', methods=['POST'])
 def get_solution():
-    grid_size = request.form.get('grid_size')
-    population_size = request.form.get('population_size')
-    generation_size = request.form.get('generation_size')
+    grid_size = int(request.form.get('grid_size'))
+    population_size = int(request.form.get('population_size'))
+    generation_size = int(request.form.get('generation_size'))
 
-    maze, paths = maze_mapper.to_maze(values=[v for k, v in request.form.items() if k.isnumeric()], size=int(grid_size))
-    graph, starting_node_id = maze_mapper.to_graph(maze=maze)
-    hof, success = solver_ga_v2.solve_for_max_profit(graph=graph, starting_node_id=starting_node_id, distance_limit=50)
+    maze_cells = [v for k, v in request.form.items() if k.isnumeric()]
 
-    if success:
-        for index, individual in enumerate(hof):
-            print(
-                f'{index + 1}.\t{individual} points: {individual.fitness.values[0]}, distance: {individual.fitness.values[1]}')
-        return '<button class="solve-button">SUCCESS</button>'
+    maze = maze_mapper.to_maze(values=maze_cells, size=grid_size)
 
-    return '<button class="solve-button">FAILURE</button>'
+    weighted_graph, starting_node_id, paths = maze_mapper.to_graph(maze=maze)
+
+    hof, success = solver_ga_v2.solve_for_max_profit(
+        graph=weighted_graph,
+        starting_node_id=starting_node_id,
+        distance_limit=50
+    )
+
+    best_solution = hof[0]
+
+    # concat into path for drawing
+    complete_solution_path = {starting_node_id: 1}
+    for i in range(len(best_solution) - 1):
+        point1, point2 = best_solution[i], best_solution[i + 1]
+        path_between = paths[(point1, point2)]
+        if point1 != path_between[0]:
+            path_between = path_between[::-1]
+        removed_first_last = {point: i + 1 for point in path_between[1:]}
+        complete_solution_path = complete_solution_path | removed_first_last
+
+    if not success:
+        return '<button class="solve-button">FAILURE</button>'
+
+    for index, individual in enumerate(hof):
+        print(
+            f'{index + 1}.\t{individual} points: {individual.fitness.values[0]}, distance: {individual.fitness.values[1]}')
+
+    return render_template(
+        'maze/partials/maze.html',
+        size=grid_size,
+        solution_path=complete_solution_path,
+        cells=maze_cells
+    )
