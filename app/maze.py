@@ -41,6 +41,7 @@ def get_solution():
     grid_size = int(request.form.get('grid_size'))
     population_size = int(request.form.get('population_size'))
     generation_size = int(request.form.get('generation_size'))
+    step_count = int(request.form.get('step_count'))
 
     maze_cells = [v for k, v in request.form.items() if k.isnumeric()]
 
@@ -51,7 +52,9 @@ def get_solution():
     hof, success = solver_ga_v2.solve_for_max_profit(
         graph=weighted_graph,
         starting_node_id=starting_node_id,
-        distance_limit=50
+        distance_limit=step_count,
+        population_size=population_size,
+        generation_size=generation_size
     )
 
     best_solution = hof[0]

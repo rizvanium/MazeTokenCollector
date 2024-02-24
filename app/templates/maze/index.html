@@ -106,6 +106,11 @@
                     <input name="generation_size" type="number" min="1" max="5000" value="50"
                            id="generation-size">
                 </li>
+                <li class="setting-row">
+                    <label for="step-count">Step count:</label>
+                    <input name="step_count" type="number" min="1" max="1000" value="50"
+                           id="step-count">
+                </li>
             </ul>
         </li>
     </ul>
@@ -114,7 +119,7 @@
         hx-post="/solutions"
         hx-trigger="click"
         hx-target=".grid-container"
-        hx-include=".hidden-grid-item, #grid-size, #population-size, #generation-size"
+        hx-include=".hidden-grid-item, #grid-size, #population-size, #generation-size, #step-count"
         hx-swap="outerHTML"
 
 >Solve
