@@ -1,24 +1,27 @@
 <div class="grid-container size-{{size}}-{{size}}">
     {% if cells|length == 0 %}
     {% for i in range(size*size) %}
-    <div class="grid-item path"
+    <div id="grid-item-{{i}}"
+         class="grid-item path"
          hx-put="/maze/cell"
          hx-trigger="click"
          hx-swap="outerHTML"
          hx-include="#hidden-brush-select"
-         hx-vals='{"index": "{{i}}"}'
+         hx-vals='javascript:{"index": "{{i}}", "prev_brush": "path", "points": document.getElementById("total-points").innerText}'
     >
         <input class="hidden-grid-item" name="{{i}}" value="path" style="display: none;">
     </div>
     {% endfor %}
     {% else %}
     {% for cell in cells %}
-    <div class="grid-item {{cell}}"
+    <div id="grid-item-{{loop.index0}}"
+         class="grid-item {{cell}}"
          hx-put="/maze/cell"
          hx-trigger="click"
          hx-swap="outerHTML"
          hx-include="#hidden-brush-select"
-         hx-vals='{"index": "{{ loop.index0 }}"}'
+         hx-vals='javascript:{"index": "{{loop.index0}}", "prev_brush": "{{cell}}", "points": document.getElementById("total-points").innerText}'
+
     >
         {{loop.index0 if solution_path.get(loop.index0) else ''}}
         <input class="hidden-grid-item" name="{{loop.index0 }}" value="{{cell}}" style="display: none;">

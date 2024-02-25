@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request
 
 from .solvers import solver_ga_v2
 from .mappers import maze_mapper
+from .models import Maze
 
 bp = Blueprint('maze', __name__)
 
@@ -22,11 +23,19 @@ def select_item():
 
 @bp.route('/maze/cell', methods=['PUT'])
 def update_maze_cell():
+    brush = request.form.get('brush')
+    prev_brush = request.form.get('prev_brush')
+    idx = request.form.get('index')
+    points = int(request.form.get('points'))
+
+    points_to_add = brushes_to_points[brush]
+    points_to_subtract = brushes_to_points[prev_brush]
+
     return render_template(
         'maze/partials/cell.html',
-        brush=request.form.get('brush'),
-        index=request.form.get('index'),
-        cells=[]
+        brush=brush,
+        index=idx,
+        points=points + points_to_add - points_to_subtract
     )
 
 
@@ -82,3 +91,14 @@ def get_solution():
         solution_path=complete_solution_path,
         cells=maze_cells
     )
+
+
+brushes_to_points = {
+    'path': 0,
+    'wall': 0,
+    'agent': 0,
+    'token-common': 1,
+    'token-rare': 2,
+    'token-unique': 5,
+    'token-legendary': 10
+}

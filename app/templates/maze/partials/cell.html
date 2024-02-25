@@ -1,9 +1,12 @@
-<div class="grid-item {{ brush }}"
+<div id="grid-item-{{index}}"
+     class="grid-item {{ brush }}"
      hx-put="/maze/cell"
      hx-trigger="click"
      hx-swap="outerHTML"
      hx-include="#hidden-brush-select"
-     hx-vals='{"index": "{{index}}"}'
+     hx-vals='javascript:{"index": "{{index}}", "prev_brush":"{{brush}}", "points": document.getElementById("total-points").innerText}'
 >
+
     <input class="hidden-grid-item" name="{{index}}" value="{{brush}}" style="display: none;">
 </div>
+<span id="total-points" hx-swap-oob="true">{{points}}</span>

@@ -4,17 +4,18 @@
 
 {% block content %}
 <ul class="side-list horizontal">
-    <li>Total points: 10</li>
+    <li>Total points: <span id="total-points">0</span></li>
 </ul>
 <div class="maze-container">
     <div class="grid-container">
         {% for i in range(10*10) %}
-        <div class="grid-item path"
+        <div id="grid-item-{{i}}"
+                class="grid-item path"
              hx-put="/maze/cell"
              hx-trigger="click"
              hx-swap="outerHTML"
              hx-include="#hidden-brush-select"
-             hx-vals='{"index": "{{i}}"}'
+             hx-vals='javascript:{"index": "{{i}}", "prev_brush":"path", "points": document.getElementById("total-points").innerText}'
         >
             <input class="hidden-grid-item" name="{{i}}" value="path"
                    style="display: none;">
