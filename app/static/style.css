@@ -73,7 +73,7 @@ p, h1, h2, h3, h4, h5, h6 {
 
 body, html {
     font-family: "General Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    height: 100%;
+    height: fit-content;
     width: 100%;
     margin: 0;
     display: flex;
@@ -297,12 +297,18 @@ h2 {
     padding: 0;
 }
 
+#selected-solution {
+    width: 100%;
+    padding: 0;
+}
+
+
 .solutions-list li .label-floating {
     position: absolute;
     top: 0;
     left: 10px;
     transform: translateY(-50%);
-    background-color: #00695c   ;
+    background-color: rebeccapurple;
     padding: 0.25em 0.75em;
     font-size: 0.85rem;
     border-radius: 2px;
@@ -340,8 +346,12 @@ h2 {
     background-color: #00695c;
 }
 
+#selected-solution .solutions-list li:hover {
+    background-color: var(--color-path);
+}
+
 .selected {
-    background-color: rebeccapurple;
+    background-color: #35ccb9;
 }
 
 .solutions-list li .solution-cell {
@@ -351,6 +361,10 @@ h2 {
     margin: 0.25em 0.25em;
     min-width: 3em;
     text-align: center;
+}
+
+.solutions-list li .solution-cell:hover {
+    background-color: #35ccb9;
 }
 
 .color-rectangle {
@@ -375,6 +389,11 @@ h2 {
     );
     color: var(--color-font-primary);
     font-weight: bold;
+}
+
+.agent.selected {
+    background: none;
+    background-color: #35ccb9;
 }
 
 .text-rectangle {
@@ -431,9 +450,84 @@ h2 {
     color: black;
 }
 
+.solving {
+    animation: psychedelicAnimation 2s infinite alternate;
+}
+
 .setting-row {
     display: flex;
     justify-content: space-between;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+}
+
+@keyframes psychedelicAnimation {
+    0% {
+        background-image: radial-gradient(circle at center, #9400D3, #0000FF);
+    }
+    5% {
+        background-image: radial-gradient(circle at center, #0000FF, #FF4500);
+    }
+    10% {
+        background-image: radial-gradient(circle at center, #00FF00, #8A2BE2);
+    }
+    15% {
+        background-image: radial-gradient(circle at center, #FFFF00, #FF0000);
+    }
+    20% {
+        background-image: radial-gradient(circle at center, #9400D3, #FF4500);
+    }
+    25% {
+        background-image: radial-gradient(circle at center, #FF0000, #FFFF00);
+    }
+    30% {
+        background-image: radial-gradient(circle at center, #FFFF00, #C71585);
+    }
+    35% {
+        background-image: radial-gradient(circle at center, #8A2BE2, #00FF00);
+    }
+    40% {
+        background-image: radial-gradient(circle at center, #00CED1, #C71585);
+    }
+    45% {
+        background-image: radial-gradient(circle at center, #00FF7F, #008000);
+    }
+    50% {
+        background-image: radial-gradient(circle at center, #32CD32, #00CED1);
+    }
+    55% {
+        background-image: radial-gradient(circle at center, #FFFF00, #C71585);
+    }
+    60% {
+        background-image: radial-gradient(circle at center, #00CED1, #FF8C00);
+    }
+    65% {
+        background-image: radial-gradient(circle at center, #FF4500, #00CED1);
+    }
+    70% {
+        background-image: radial-gradient(circle at center, #0000CD, #C71585);
+    }
+    75% {
+        background-image: radial-gradient(circle at center, #DAA520, #0000CD);
+    }
+    80% {
+        background-image: radial-gradient(circle at center, #87CEEB, #00BFFF);
+    }
+    85% {
+        background-image: radial-gradient(circle at center, #00FA9A, #9400D3);
+    }
+    90% {
+        background-image: radial-gradient(circle at center, #ADFF2F, #00FF7F);
+    }
+    95% {
+        background-image: radial-gradient(circle at center, #FFD700, #C71585);
+    }
+    100% {
+        background-image: radial-gradient(circle at center, #9400D3, #ADFF2F);
+    }
 }
 
 @keyframes seizure {

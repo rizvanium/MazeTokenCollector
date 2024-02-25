@@ -16,11 +16,11 @@
 
             if (!gridItem) return;
 
-            elem.addEventListener('mouseover', function() {
+            elem.addEventListener('mouseover', function () {
                 gridItem.classList.add('selected')
             })
 
-            elem.addEventListener('mouseout', function() {
+            elem.addEventListener('mouseout', function () {
                 gridItem.classList.remove('selected')
             })
         })
@@ -31,13 +31,25 @@
         addHoverListeners();
     });
 
-    document.addEventListener('htmx:afterSwap', function ({ target }) {
+    document.addEventListener('htmx:afterSwap', function ({target}) {
         console.log('htmx:afterSwap target:', target.id)
 
-        if (target.id !== 'selected-solution') {
-            return
-        }
+        if (target.id !== 'selected-solution') return
 
-        addHoverListeners();
+        addHoverListeners()
+    })
+
+    document.addEventListener('htmx:beforeRequest', function ({target}) {
+        if (target.id !== 'solve-button') return;
+
+        document.body.classList.add('solving')
+        document.documentElement.classList.add('solving')
+    })
+
+    document.addEventListener('htmx:afterRequest', function ({target}) {
+        if (target.id !== 'solve-button') return;
+
+        document.body.classList.remove('solving')
+        document.documentElement.classList.remove('solving')
     })
 </script>
