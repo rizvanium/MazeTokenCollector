@@ -340,6 +340,10 @@ h2 {
     background-color: #00695c;
 }
 
+.selected {
+    background-color: rebeccapurple;
+}
+
 .solutions-list li .solution-cell {
     background-color: var(--color-path-light);
     border: rgba(255, 255, 255, 0.87) solid 2px;

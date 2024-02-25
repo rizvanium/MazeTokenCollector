@@ -8,3 +8,36 @@
 </main>
 
 <script src="{{ url_for('static', filename='htmx.min.js') }}"></script>
+<script>
+    function addHoverListeners() {
+        document.querySelectorAll(".solution-cell").forEach(elem => {
+            const tag = elem.innerHTML.trim()
+            const gridItem = document.getElementById(`grid-item-${tag}`)
+
+            if (!gridItem) return;
+
+            elem.addEventListener('mouseover', function() {
+                gridItem.classList.add('selected')
+            })
+
+            elem.addEventListener('mouseout', function() {
+                gridItem.classList.remove('selected')
+            })
+        })
+
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        addHoverListeners();
+    });
+
+    document.addEventListener('htmx:afterSwap', function ({ target }) {
+        console.log('htmx:afterSwap target:', target.id)
+
+        if (target.id !== 'selected-solution') {
+            return
+        }
+
+        addHoverListeners();
+    })
+</script>
