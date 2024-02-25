@@ -66,14 +66,18 @@ def get_solution():
         generation_size=generation_size
     )
 
-    best_solution = hof[0]
-
+    for index, individual in enumerate(hof):
+        print(
+            f'{index + 1}.\t{individual} points: {individual.fitness.values[0]}, distance: {individual.fitness.values[1]}')
     # concat into path for drawing
     solutions = []
     for individual in hof:
+        if individual.fitness.values[0] <= 0:
+            continue
         solution_path = [individual[0]]
         for i in range(len(individual) - 1):
             point1, point2 = individual[i], individual[i + 1]
+            print(point1, point2)
             path_between = paths[(point1, point2)]
             if point1 != path_between[0]:
                 path_between = list(reversed(path_between))
@@ -90,10 +94,6 @@ def get_solution():
     if not success:
         return '<button class="solve-button">FAILURE</button>'
 
-    for index, individual in enumerate(hof):
-        print(
-            f'{index + 1}.\t{individual} points: {individual.fitness.values[0]}, distance: {individual.fitness.values[1]}')
-
     return render_template(
         'maze/partials/maze.html',
         size=grid_size,
@@ -101,6 +101,13 @@ def get_solution():
         cells=maze_cells,
         solutions=solutions
     )
+
+
+@bp.route('/solutions', methods=['PUT'])
+def select_path():
+    grid_size = int(request.form.get('grid_size'))
+    maze_cells = [v for k, v in request.form.items() if k.isnumeric()]
+    solution_path = request.form.get('solution_path')
 
 
 brushes_to_points = {
