@@ -23,7 +23,7 @@
          hx-vals='javascript:{"index": "{{loop.index0}}", "prev_brush": "{{cell}}", "points": document.getElementById("total-points").innerText}'
 
     >
-        {{loop.index0 if solution_path.get(loop.index0) else ''}}
+        {{loop.index0 if loop.index0 in solution_path else ''}}
         <input class="hidden-grid-item" name="{{loop.index0 }}" value="{{cell}}" style="display: none;">
     </div>
     {% endfor %}
@@ -33,9 +33,9 @@
     <h2>Solutions</h2>
     <ul class="solutions-list">
         {% for solution in solutions %}
-        <li><span class="label-floating">#{{loop.index0 + 1}} Total points: {{solution['points']}} Steps Taken: {{solution['steps_taken']}}</span>
+        <li><span class="label-floating">#{{loop.index0 + 1}} Total points: {{solution['total_points']}} Steps Taken: {{solution['steps_taken']}}</span>
             {% for cell in solution.path %}
-                <span class="solution-cell">{{cell}}</span>
+            <span class="solution-cell">{{cell}}</span>
             {% endfor %}
         </li>
         {% endfor %}

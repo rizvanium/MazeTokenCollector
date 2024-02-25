@@ -69,14 +69,23 @@ def get_solution():
     best_solution = hof[0]
 
     # concat into path for drawing
-    complete_solution_path = {starting_node_id: 1}
-    for i in range(len(best_solution) - 1):
-        point1, point2 = best_solution[i], best_solution[i + 1]
-        path_between = paths[(point1, point2)]
-        if point1 != path_between[0]:
-            path_between = path_between[::-1]
-        removed_first_last = {point: i + 1 for point in path_between[1:]}
-        complete_solution_path = complete_solution_path | removed_first_last
+    solutions = []
+    for individual in hof:
+        solution_path = [individual[0]]
+        for i in range(len(individual) - 1):
+            point1, point2 = individual[i], individual[i + 1]
+            path_between = paths[(point1, point2)]
+            if point1 != path_between[0]:
+                path_between = list(reversed(path_between))
+            print(point1, point2, path_between)
+            solution_path += path_between[1:]
+        solutions += [
+            {
+                'path': solution_path,
+                'total_points': individual.fitness.values[0],
+                'steps_taken': individual.fitness.values[1],
+            }
+        ]
 
     if not success:
         return '<button class="solve-button">FAILURE</button>'
@@ -88,15 +97,9 @@ def get_solution():
     return render_template(
         'maze/partials/maze.html',
         size=grid_size,
-        solution_path=complete_solution_path,
+        solution_path=solutions[0]['path'],
         cells=maze_cells,
-        solutions=[
-            {
-                'path': complete_solution_path,
-                'points': best_solution.fitness.values[0],
-                'steps_taken': best_solution.fitness.values[1]
-            }
-        ]
+        solutions=solutions
     )
 
 
