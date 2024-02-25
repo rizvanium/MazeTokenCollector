@@ -7,7 +7,7 @@
             hx-trigger="click"
             hx-include=".hidden-grid-item"
             hx-target="#solutions"
-            hx-vals='{"solution_path": "{{solution["path"]}}", "grid_size": {{size}}, "solutions": "{{ solutions }}"}'
+            hx-vals='{"solution_path": "{{solution["path"]}}", "solution_idx": "{{loop.index0}}", "grid_size": {{size}}, "solutions": "{{ solutions }}"}'
             class="{{'selected' if solution_path == solution.path else ''}}">
             <span class="label-floating">#{{loop.index0 + 1}} Total points: {{solution['total_points']}} Steps Taken: {{solution['steps_taken']}}</span>
             {% for cell in solution.path %}
@@ -31,4 +31,15 @@
         <input class="hidden-grid-item" name="{{loop.index0 }}" value="{{cell}}" style="display: none;">
     </div>
     {% endfor %}
+</div>
+<div id="selected-solution" hx-swap-oob="true">
+    <h2>Selected</h2>
+    <ul class="solutions-list">
+        <li>
+            <span class="label-floating">#{{solution_idx + 1}} Total points: {{solutions[solution_idx]['total_points']}} Steps Taken: {{solutions[solution_idx]['steps_taken']}}</span>
+            {% for cell in solution_path %}
+            <span class="solution-cell">{{cell}}</span>
+            {% endfor %}
+        </li>
+    </ul>
 </div>

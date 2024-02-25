@@ -44,7 +44,7 @@ def update_maze_cell():
 @bp.route('/maze', methods=['PUT'])
 def update_maze():
     maze_size = request.form.get('grid_size')
-    return render_template('maze/partials/maze.html', size=int(maze_size), solution_path={})
+    return render_template('maze/partials/maze.html', size=int(maze_size), solution_path=[], solutions=[])
 
 
 @bp.route('/solutions', methods=['POST'])
@@ -112,6 +112,8 @@ def select_path():
     solution_path_json = json.dumps(solution_path)
     solution_path = json.loads(json.loads(solution_path_json))
 
+    solution_idx = int(request.form.get('solution_idx'))
+
     solutions = request.form.get('solutions')
     solutions_json = solutions.replace("'", '"')
     solutions = json.loads(solutions_json)
@@ -122,6 +124,7 @@ def select_path():
         solution_path=solution_path,
         cells=maze_cells,
         solutions=solutions,
+        solution_idx=solution_idx
     )
 
 

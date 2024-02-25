@@ -1,3 +1,16 @@
+<div id="selected-solution" hx-swap-oob="true">
+    {% if solutions|length > 0 %}
+    <h2>Selected</h2>
+    <ul class="solutions-list">
+        <li>
+            <span class="label-floating">#1 Total points: {{solutions[0]['total_points']}} Steps Taken: {{solutions[0]['steps_taken']}}</span>
+            {% for cell in solution_path %}
+            <span class="solution-cell">{{cell}}</span>
+            {% endfor %}
+        </li>
+    </ul>
+    {% endif %}
+</div>
 <div id="maze-grid" class="grid-container size-{{size}}-{{size}}">
     {% if cells|length == 0 %}
     {% for i in range(size*size) %}
@@ -30,6 +43,7 @@
     {% endif %}
 </div>
 <div id="solutions" hx-swap-oob="true">
+    {% if solutions|length > 0%}
     <h2>Hall Of Fame</h2>
     <ul class="solutions-list">
         {% for solution in solutions %}
@@ -38,7 +52,7 @@
             hx-trigger="click"
             hx-include=".hidden-grid-item"
             hx-target="#solutions"
-            hx-vals='{"solution_path": "{{solution["path"]}}", "grid_size": {{size}}, "solutions": "{{ solutions }}"}'
+            hx-vals='{"solution_path": "{{solution["path"]}}", "solution_idx": "{{loop.index0}}", "grid_size": {{size}}, "solutions": "{{ solutions }}"}'
             class="{{'selected' if solution_path == solution.path else ''}}">
             <span class="label-floating">#{{loop.index0 + 1}} Total points: {{solution['total_points']}} Steps Taken: {{solution['steps_taken']}}</span>
             {% for cell in solution.path %}
@@ -47,4 +61,5 @@
         </li>
         {% endfor %}
     </ul>
+    {% endif %}
 </div>
