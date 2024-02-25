@@ -89,7 +89,14 @@ def get_solution():
         'maze/partials/maze.html',
         size=grid_size,
         solution_path=complete_solution_path,
-        cells=maze_cells
+        cells=maze_cells,
+        solutions=[
+            {
+                'path': complete_solution_path,
+                'points': best_solution.fitness.values[0],
+                'steps_taken': best_solution.fitness.values[1]
+            }
+        ]
     )
 
 

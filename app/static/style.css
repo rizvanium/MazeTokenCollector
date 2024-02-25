@@ -83,6 +83,12 @@ body, html {
     box-sizing: border-box;
 }
 
+h2 {
+    color: var(--color-font-primary);
+    padding: 0;
+    margin: 1em 0;
+}
+
 .app-title {
     color: var(--color-font-primary);
     margin: 1em 0;
@@ -281,6 +287,66 @@ body, html {
     text-align: center;
     width: fit-content;
     margin-bottom: -2px;
+}
+
+.solutions-list {
+    list-style: none;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    padding: 0;
+}
+
+.solutions-list li .label-floating {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    transform: translateY(-50%);
+    background-color: #00695c   ;
+    padding: 0.25em 0.75em;
+    font-size: 0.85rem;
+    border-radius: 2px;
+}
+
+#solutions {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.solutions-list li {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: start;
+    align-content: space-around;
+    flex-wrap: wrap;
+    background-color: var(--color-path);
+    color: var(--color-font-primary);
+    font-weight: bold;
+    border: rgba(0, 0, 0, 0.87) solid 2px;
+    border-radius: 2px;
+    padding: 2em;
+    margin-bottom: 1.5em;
+}
+
+.solutions-list li:hover {
+    background-color: #35ccb9;
+}
+
+.solutions-list li.selected {
+    background-color: #00695c;
+}
+
+.solutions-list li .solution-cell {
+    background-color: var(--color-path-light);
+    border: rgba(255, 255, 255, 0.87) solid 2px;
+    padding: 0.5em 1em;
+    margin: 0.25em 0.25em;
+    min-width: 3em;
+    text-align: center;
 }
 
 .color-rectangle {
