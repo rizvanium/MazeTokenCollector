@@ -1,4 +1,4 @@
-<div class="grid-container size-{{size}}-{{size}}">
+<div id="maze-grid" class="grid-container size-{{size}}-{{size}}">
     {% if cells|length == 0 %}
     {% for i in range(size*size) %}
     <div id="grid-item-{{i}}"
@@ -33,7 +33,14 @@
     <h2>Hall Of Fame</h2>
     <ul class="solutions-list">
         {% for solution in solutions %}
-        <li><span class="label-floating">#{{loop.index0 + 1}} Total points: {{solution['total_points']}} Steps Taken: {{solution['steps_taken']}}</span>
+        <li hx-put="/solutions"
+            hx-swap="outerHTML"
+            hx-trigger="click"
+            hx-include=".hidden-grid-item"
+            hx-target="#solutions"
+            hx-vals='{"solution_path": "{{solution["path"]}}", "grid_size": {{size}}, "solutions": "{{ solutions }}"}'
+            class="{{'selected' if solution_path == solution.path else ''}}">
+            <span class="label-floating">#{{loop.index0 + 1}} Total points: {{solution['total_points']}} Steps Taken: {{solution['steps_taken']}}</span>
             {% for cell in solution.path %}
             <span class="solution-cell">{{cell}}</span>
             {% endfor %}

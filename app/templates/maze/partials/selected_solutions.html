@@ -1,0 +1,34 @@
+<div id="solutions">
+    <h2>Hall Of Fame</h2>
+    <ul class="solutions-list">
+        {% for solution in solutions %}
+        <li hx-put="/solutions"
+            hx-swap="outerHTML"
+            hx-trigger="click"
+            hx-include=".hidden-grid-item"
+            hx-target="#solutions"
+            hx-vals='{"solution_path": "{{solution["path"]}}", "grid_size": {{size}}, "solutions": "{{ solutions }}"}'
+            class="{{'selected' if solution_path == solution.path else ''}}">
+            <span class="label-floating">#{{loop.index0 + 1}} Total points: {{solution['total_points']}} Steps Taken: {{solution['steps_taken']}}</span>
+            {% for cell in solution.path %}
+            <span class="solution-cell">{{cell}}</span>
+            {% endfor %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<div id="maze-grid" class="grid-container size-{{size}}-{{size}}" hx-swap-oob="true">
+    {% for cell in cells %}
+    <div id="grid-item-{{loop.index0}}"
+         class="grid-item {{cell}}"
+         hx-put="/maze/cell"
+         hx-trigger="click"
+         hx-swap="outerHTML"
+         hx-include="#hidden-brush-select"
+         hx-vals='javascript:{"index": "{{loop.index0}}", "prev_brush": "{{cell}}", "points": document.getElementById("total-points").innerText}'
+    >
+        {{loop.index0 if loop.index0 in solution_path else ''}}
+        <input class="hidden-grid-item" name="{{loop.index0 }}" value="{{cell}}" style="display: none;">
+    </div>
+    {% endfor %}
+</div>

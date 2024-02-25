@@ -1,4 +1,6 @@
-from flask import Blueprint, render_template, request
+import json
+
+from flask import Blueprint, render_template, request, jsonify
 
 from .solvers import solver_ga_v2
 from .mappers import maze_mapper
@@ -77,11 +79,9 @@ def get_solution():
         solution_path = [individual[0]]
         for i in range(len(individual) - 1):
             point1, point2 = individual[i], individual[i + 1]
-            print(point1, point2)
             path_between = paths[(point1, point2)]
             if point1 != path_between[0]:
                 path_between = list(reversed(path_between))
-            print(point1, point2, path_between)
             solution_path += path_between[1:]
         solutions += [
             {
@@ -107,7 +107,22 @@ def get_solution():
 def select_path():
     grid_size = int(request.form.get('grid_size'))
     maze_cells = [v for k, v in request.form.items() if k.isnumeric()]
+
     solution_path = request.form.get('solution_path')
+    solution_path_json = json.dumps(solution_path)
+    solution_path = json.loads(json.loads(solution_path_json))
+
+    solutions = request.form.get('solutions')
+    solutions_json = solutions.replace("'", '"')
+    solutions = json.loads(solutions_json)
+
+    return render_template(
+        template_name_or_list='maze/partials/selected_solutions.html',
+        size=grid_size,
+        solution_path=solution_path,
+        cells=maze_cells,
+        solutions=solutions,
+    )
 
 
 brushes_to_points = {
