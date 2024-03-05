@@ -4,7 +4,6 @@ from flask import Blueprint, render_template, request, jsonify
 
 from .solvers import solver_ga_v2
 from .mappers import maze_mapper
-from .models import Maze
 
 bp = Blueprint('maze', __name__)
 
